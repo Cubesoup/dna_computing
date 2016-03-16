@@ -1,0 +1,122 @@
+\documentclass{beamer}
+
+\usepackage{amsmath,amsthm,amssymb,enumerate}
+
+\begin{document}
+
+% what is dna
+\begin{frame}
+
+\end{frame}
+
+% using dna to encode strings
+
+% biological operations on dna
+
+% logical operations on strings
+
+% the dna computing model (restricted? unrestricted?)
+\begin{frame}
+\frametitle{The Restricted Model}
+A \emph{tube} is a multiset of strings over some alphabet $\Sigma$. We have the following operations on tubes:
+\begin{itemize}
+\item \emph{Separate}. Given a tube $T$ and a symbol $s \in \Sigma$, this produces two tubes $+(T,s)$ and $-(T,s)$ where $+(T,s)$ is the set of strings of $T$ which contain the symbol $s$, and $-(T,s)$ is the set of strings of $T$ which do not contain $s$. The original tube $T$ is destroyed.
+\item \emph{Merge}. Given tubes $T_1,T_2$, this produces $T_1 \cup T_2$. $T_1, T_2$ are destroyed.
+\item \emph{Detect}. Given a tube $T$, produces ``yes'' if $T$ is nonempty, and ``no'' otherwise.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+
+introduce program notation
+\end{frame}
+
+\begin{frame}
+\frametitle{The Unrestricted Model}
+
+The operations on the previous slide give what is called the \emph{restricted model} of DNA computing. The \emph{unrestricted model} is given by including the operation
+
+\emph{Amplify}. Which, given a tube $T$, produces two new tubes $T_1, T_2$ such that $T_1 = T_2 = T$, and destroys $T$.
+\end{frame}
+
+% example: deciding whether or not a graph is 3-colourable (NP-complete problem)
+\begin{frame}
+\frametitle{Example: A DNA program for the 3-colourability problem}
+
+Given an $n$ vertex graph $G$ with edges $e_1,\ldots,e_n$, let $\Sigma = \{r_1,b_1,g_1,r_2,b_2,g_2,\ldots,r_n,b_n,g_n\}$, and consider the following restricted program on input $T = \{\alpha | \alpha \subseteq \Sigma \wedge \alpha = c_1c_2,\ldots,c_n \wedge c_i \in \{r_i,b_i,c_i\}, i = 1,2,\ldots,n \}$
+
+\begin{enumerate}[(1)]
+\item Input$(T)$.
+\item for each edge $e_k \in \{e_1,\ldots,e_z\}$, let $e_k = \langle i,j \rangle$ in
+  \begin{enumerate}[(i)]
+  \item $T_{red} \leftarrow +(T,r_i)$ and $T_{blue \vee green} \leftarrow -(T,r_i)$
+  \item $T_{blue} \leftarrow +(T_{blue \vee green},b_i)$ and $T_{green} \leftarrow -(T_{blue \vee green},b_i)$
+  \item $T_{red}^{good} \leftarrow -(T_{red},r_j)$
+  \item $T_{blue}^{good} \leftarrow -(T_{blue},b_j)$
+  \item $T_{green}^{good} \leftarrow -(T_{green},g_j)$
+  \item $T' = T_{red}^{good} \cup T_{blue}^{good}$
+  \item $T = T_{gree}^{good} \cup T'$
+  \end{enumerate}
+\item Output(Detect$(T)$).
+\end{enumerate}
+\end{frame}
+
+% measures of computational complexity for dna computing
+\begin{frame}
+\frametitle{Measures of Complexity for DNA Programs}
+
+The number of biological steps performed gives a straightforward measure of time complexity, and the highest number of strands of DNA present at any step during a DNA computaiton can be thought of as it's space complexity. Therefore, we consider the number of \emph{bio steps} a DNA program takes, and the number of \emph{strands} it requires, as a function of the input.
+
+Note that in the restricted model, the number of strands required is number of strands in the input test tube, as no operation creates more strands.
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: Complexity of the program for 3-colourability}
+
+For a graph with $n$ vertices and $k$ edges \ldots
+
+The number of strands required is $\lvert T \rvert = 3^n$, one strand for each possible assignment of colours to vertices.
+
+The number of bio steps required is $7k + 2 \in \mathcal{O}(k)$, as we perform steps $(i - vii)$ once for each edge, and a constant number of other steps. (Alternatively, $\mathcal{O}(n^2)$ as $k \leq n^2$).
+\end{frame}
+
+% table of results / complexity from Boneh "on the computational power of DNA"?
+
+\begin{frame}
+
+we seem to have solved an NP-complete problem (3-colourability) in time polynomial in the size of the graph!
+
+(problems: the amount of DNA still grows exponentially, simulation of DNA computation on a TM does not preserve this due to the high degree of parallelism present in the separate operation)
+
+\end{frame}
+
+% the model is turing complete (winfree) 
+
+\begin{frame}
+It is easy to see that we can simulate both the restricted and unrestricted model with a Turing machine. (how to simulate other direction?) (winfree shows that only annealing and ligation are needed, must explain this earlier)
+
+This is done by proving that we can simulate an arbitrary \emph{blocked cellular automaton} (BCA) with a DNA program. Since BCAs are capable of universal computation, so then are DNA programs.
+
+\end{frame}
+
+% do we really want to go in to this?
+
+% complexity / BP / NBP (really?)
+
+% error rates and the amplify operation
+
+We have been assuming that our biological operations are error free. In reality, they are not. Further, DNA strands are prone to dissolving, and errors in the annealing process sometimes occur.
+
+In the universal model, we can address this by using the amplify operation every so many steps to double the amount of DNA, and by double-encoding our strings in the starting test tube. (that is, instead of $s_1,\ldots,s_n$, encode $s_1,\ldots,s_n,s_1,\ldots,s_n$.
+
+% real-world dna computing (adleman, the DES team, and impracticality)
+
+
+
+% other biocomputing models 
+
+Deoxyribozyme-based. (tictactoe)
+
+Programmable automata that can interact with the surrounding microbiological environment.
+
+\end{document}
