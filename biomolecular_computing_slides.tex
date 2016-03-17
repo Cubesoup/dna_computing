@@ -6,14 +6,80 @@
 
 % what is dna
 \begin{frame}
-
+\frametitle{DNA Overview}
+Deoxyribonucleic Acid (DNA) is
+\begin{itemize}
+\item Ubiquitous. Present in all known organisms.
+\item Well suited to encoding strings over a finite alphabet.
+\item Relatively stable and resilient.
+\item Extremely small. Think nanometres. 
+\item Modifiable. Interacts in interesting ways with specific proteins.
+\end{itemize}
+\ldots among many other things. This makes DNA interesting from a computational perspective. We like strings, and if DNA allows easy storage and manipulation of strings at nanoscale, we want to know about that.
 \end{frame}
 
-% using dna to encode strings
+\begin{frame}
+\frametitle{DNA Overview}
+single strands and nucleotide sequences, complementary nucleotides, complementary sequences, 3' and 5' ends, and double strands
+\end{frame}
 
-% biological operations on dna
+% do we really need to go over why DNA encodes binary information?
+%\begin{frame}
+%\frametitle{Details: Base Pairs and Bits}
+%\end{frame}
+
+\begin{frame}
+\frametitle{Things to do With DNA}
+read it (sequencing), write/create it (how?), and PCR. (for example...)
+\end{frame}
+
+\begin{frame}
+\frametitle{The Polymerase Chain Reaction Technique}
+A \emph{DNA Polymerase} in an enzyme that, given a double strand of DNA in which one half is shorter than the other half, will use available nucleotides to extend a single strand as far as it can in the 5'-3' direction. 
+\begin{center}
+\includegraphics{dna_polymerase.png}
+\end{center}
+In the above image, the existing, shorter strand is coloured red.
+\end{frame}
+
+\begin{frame}
+\frametitle{The Polymerase Chain Reaction Technique}
+DNA polymerase will extend existing strands, but cannot create new strands on its own. A \emph{Primer} is a short, single strand of DNA that gives the polymerase something to extend. 
+\begin{center}
+\includegraphics{pcr_primer.png}
+\end{center}
+Note that since a nucleotide sequence will bind only to its complementary sequence, we can use DNA polymerase in combination with primers to complete only the single strands that contain the complementary sequence of some primer \emph{as a subsequence} to double strands. This is very powerful.
+\end{frame}
+
+\begin{frame}
+\frametitle{The Polymerase Chain Reaction Technique}
+Next, we note that the following happen in mutually exclusive temperature ranges:
+\begin{itemize}
+\item DNA Melting, in which a double strand separates into its component single strands ($\sim 95^\circ$ C).
+\item DNA Annealing, in which nearby complementary sequences bind together, forming a double strand ($\sim 60^\circ$ C).
+\item DNA Extension, in which DNA polymerase extends incomplete double strands ($\sim 75^\circ$ C).
+\end{itemize}
+By repeatedly changing the temperature of a solution comprised of DNA, DNA polymerase, and a variety of other things (what the polymerase needs to build the DNA, and so on), and adding the appropriate primers after each temperature change cycle, we can \emph{selectively duplicate} DNA strands at an exponential rate. This is referred to as a \emph{polymerase chain reaction} (PCR).
+\end{frame}
+
+\begin{frame}
+\frametitle{The Polymerase Chain Reaction Technique}
+Visually:
+\includegraphics[width = \paperwidth]{polymerase_chain_reaction.jpg}
+\end{frame}
+
+% mention that PCR machines exist, show a picture of a modern one.
 
 % logical operations on strings
+\begin{frame}
+Indeed, we can fairly reliably do the following to DNA (among other things):
+amplify, separate, \emph{merge}, detect.
+\end{frame}
+
+% we encode characters in our finite alphabet as, say, a 30-mer, meaning 30 base pairs,
+% to increase the effectiveness of the PCR-selection procedure. Mention this.
+
+% assume error-free, then we have a model of computation! Introduce notation.
 
 % the dna computing model (restricted? unrestricted?)
 \begin{frame}
@@ -110,8 +176,6 @@ We have been assuming that our biological operations are error free. In reality,
 In the universal model, we can address this by using the amplify operation every so many steps to double the amount of DNA, and by double-encoding our strings in the starting test tube. (that is, instead of $s_1,\ldots,s_n$, encode $s_1,\ldots,s_n,s_1,\ldots,s_n$.
 
 % real-world dna computing (adleman, the DES team, and impracticality)
-
-
 
 % other biocomputing models 
 
